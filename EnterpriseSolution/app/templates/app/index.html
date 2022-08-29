@@ -27,11 +27,12 @@ table, th, td {
   <option>100</option>
 </select>
 <button type="submit">show records</button>
-<table style="width:50%">
+<table style="width:100%">
   <tr>
     <th>Project Title</th>
     <th>Project REF</th>
     <th>project url</th>
+    <th>modify<th>
   </tr>
   {% if project_list %}
   {% for project in project_list %}
@@ -40,7 +41,11 @@ table, th, td {
     <td>{{ project.project_title }}</td>
     <td>{{ project.project_ref }}</td>
     <td><a href="/projects/{{ project.id }}/">TO URL</a></td>
-  </tr>
+    <td>
+      <a type="button" href="/projects/{{ project.id }}/">VIEW</a>
+      <a type="button" href="/projects/{{ project.id }}/edit">EDIT</a>
+      <a type="button" href="/projects/{{ project.id }}/delete">DELETE</a>
+  </td>
   {% endfor %}
   {% else %}
   <p>No projects available.</p>
