@@ -8,8 +8,26 @@ table, th, td {
 <body>
 
 <h2>A basic HTML table</h2>
-
-<table style="width:100%">
+<form method="POST">
+{% csrf_token %}
+<select name="show_records">
+  <option disabled selected="true">--select--</option>
+  <option>5</option>
+  <option>10</option>
+  <option>15</option>
+  <option>20</option>
+  <option>25</option>
+  <option>30</option>
+  <option>40</option>
+  <option>50</option>
+  <option>60</option>
+  <option>70</option>
+  <option>80</option>
+  <option>90</option>
+  <option>100</option>
+</select>
+<button type="submit">show records</button>
+<table style="width:50%">
   <tr>
     <th>Project Title</th>
     <th>Project REF</th>
@@ -28,5 +46,6 @@ table, th, td {
   <p>No projects available.</p>
 {% endif %}
 </table>
+</form>
 </body>
 </html>
