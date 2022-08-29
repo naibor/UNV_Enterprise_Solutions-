@@ -1,4 +1,3 @@
-from sys import implementation
 from django.db import models
 
     
@@ -27,9 +26,14 @@ class Project(models.Model):
     end_date = models.DateTimeField('end date')
     grant_amount = models.DecimalField(max_digits=6, decimal_places=2)
     first_disbursement_amount = models.DecimalField(max_digits=6, decimal_places=2)
-    status = models.CharField(max_length=100)
     readiness_or_NAP =models.CharField(max_length=100)
     types_of_readiness = models.CharField(max_length=100)
-    implementing_office_id = models.ForeignKey(Office, on_delete=models.PROTECT)
+    status = models.CharField(max_length=100,blank=True)
 
+
+class ProjectImplementation(models.Model):
+    country_id = models.ForeignKey(Country, on_delete=models.PROTECT )
+    project_id = models.ForeignKey(Project, on_delete=models.PROTECT )
+    implementing_office_id = models.ForeignKey(Office, on_delete=models.PROTECT)
+    status = models.CharField(max_length=100)
  
