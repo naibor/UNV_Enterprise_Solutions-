@@ -5,9 +5,14 @@ from django.shortcuts import render, get_object_or_404
 from .models import Project
 #  index page view all projects(get)
 def index(request):
-    project_list = Project.objects.all()
-    context = {'project_list': project_list}
-    return render(request, 'app/index.html', context)
+    if request.method == "POST":
+        project_list = Project.objects.all()[:int(request.POST.get("show records"))]
+        context = {'project_list': project_list}
+        return render(request, 'app/index.html', context)
+    else:
+        project_list = Project.objects.all()[:int(10)] 
+        context = {'project_list': project_list}
+        return render(request, 'app/index.html', context)
 
 # view one project
 def read(request, project_id):
