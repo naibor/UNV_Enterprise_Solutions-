@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+<body>
+
+<h2>A basic HTML table</h2>
+
+<table style="width:100%">
+  <tr>
+    <th>Project Title</th>
+    <th>Project REF</th>
+    <th>project url</th>
+  </tr>
+  {% if project_list %}
+  {% for project in project_list %}
+  
+  <tr>
+    <td>{{ project.project_title }}</td>
+    <td>{{ project.project_ref }}</td>
+    <td><a href="/projects/{{ project.id }}/">TO URL</a></td>
+  </tr>
+  {% endfor %}
+  {% else %}
+  <p>No projects available.</p>
+{% endif %}
+</table>
+</body>
+</html>
