@@ -11,9 +11,13 @@ create venv
 'USER': 'enterprise',
 'PASSWORD': 'password',
 
-####
-load dumped data
+#### load dumped data
+location:
+data/enterprise.sql
 #### 
+#### run migrations
+`python manage.py makemigrations`
+'python manage.py migrate`
 `python manage.py runserver`
 ####
 navigate to 
