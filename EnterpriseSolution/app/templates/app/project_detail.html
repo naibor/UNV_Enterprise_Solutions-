@@ -1,9 +1,28 @@
-<!DOCTYPE html>
-<html>
-<body>
-    <p>{{project}}</p>
-    <p>{{ project.project_title }}</p>
-    <p>{{ project.project_ref }}</p>
+{% extends "base.html" %}
+{% block content %}
 
-</body>
-</html>
+<div class="col">
+    <h1 class="text-center">Project Details</h1>
+    <div class="d-flex justify-content-center">
+        <div>
+            <p>Project Title: {{ project.project_title }}</p>
+            <p>Project REF: {{ project.project_ref }}</p>
+            <p>Start Date: {{ project.start_date }}</p>
+            <p>Duration: {{ project.duration}}</p>
+            <p>End Date: {{ project.end_date }}</p>
+            <p>Grant Amount: {{ project.grant_amount}}</p>
+            <p>First disbursement amount: {{ project.first_disbursement_amount }}</p>
+            <p>Readiness or NAP: {{ project.readiness_or_NAP }}</p>
+            <p>Types of readiness: {{ project.types_of_readiness }}</p>
+            <p>Status: {{ project.status }}</p>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <a href="{% url 'project:index' %}" class="d-block btn btn-primary btn-lg my-5">BACK</a>
+    </div>
+</div>
+
+
+
+{% endblock %}
