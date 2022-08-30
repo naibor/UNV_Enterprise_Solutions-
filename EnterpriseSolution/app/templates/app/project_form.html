@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+</br>
+<div class="d-flex justify-content-center">
+    <h5>Create or Edit a Project below:</h5>
+</div>
+ <div class="d-flex justify-content-center">
+   
+    </br>
+    <form style="width: 50%; justify: center;" method="POST" action="">
+        {% csrf_token %}
+        <table class="table">
+            {{form.as_table}}
+        </table>
+        <button type="submit"  class="btn btn-primary">Submit</button>
+        <button type="submit" onclick="window.location='{% url 'project:index' %}'; return false;" value="Cancel" class="btn btn-warning">cancel</button>
+        </div>
+      </form>
+</div>
+
+{% endblock %}
