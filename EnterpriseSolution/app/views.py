@@ -1,10 +1,10 @@
 # django imports
-from audioop import reverse
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
+from django.core.paginator import Paginator
 
 # rest framework
 from rest_framework.generics import ListAPIView
@@ -15,9 +15,15 @@ from .models import Project,ProjectImplementation
 
 #  index page view all projects(get)
 def index(request):
+    # if request.method == "POST":
+    #     project_list = Project.objects.all()[:int(request.POST.get("show_records"))]
+    #     context = {'project_list': project_list}
+    #     return render(request, 'app/index.html', context)
     if request.method == "POST":
-        project_list = Project.objects.all()[:int(request.POST.get("show_records"))]
-        context = {'project_list': project_list}
+        records = int(request.POST.get("show_records"))
+        project_list = Project.objects.all()[:records]
+        page_obj = Paginator(project_list, records)
+        context = {'project_list': project_list, 'page_obj': page_obj}
         return render(request, 'app/index.html', context)
     else:
         project_list = Project.objects.all()[:10]
@@ -28,6 +34,10 @@ def index(request):
 class ProjectCreateView(CreateView):
     model = Project
     fields = '__all__'
+
+    def get_success_url(self) -> str:
+        success_url = reverse_lazy('project:index')
+        return success_url
 
 # view a single project
 class ProjectDetailView(DetailView):
@@ -40,7 +50,8 @@ class ProjectUpdateView(UpdateView):
     fields = '__all__'
     
     def get_success_url(self) -> str:
-        success_url = reverse_lazy('project:index')
+        projectid = self.kwargs['pk']
+        success_url = reverse_lazy('project:read', kwargs={'pk':projectid})
         return success_url
 
 # delete a project
