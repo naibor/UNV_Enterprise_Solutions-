@@ -23,15 +23,15 @@ EnterpriseSolution/data/enterprise.sql
 `python manage.py migrate`
 `python manage.py runserver`
 #### navigate to 
-http://127.0.0.1:8000/projects/
+    - http://127.0.0.1:8000/projects/
 
 #### API
-- add country name within brackets
-http://127.0.0.1:8000/projects/api/projects/country/<kenya>
-- add status within brackets
- http://127.0.0.1:8000/projects/api/projects/status/<completed>
-- to view all projects
- http://127.0.0.1:8000/projects/api/projects/all 
+- add country name within brackets(without the brackets):
+    - http://127.0.0.1:8000/projects/api/projects/country/<kenya>
+- add status within brackets(without the brackets):
+    - http://127.0.0.1:8000/projects/api/projects/status/<completed>
+- to view all projects: 
+    - http://127.0.0.1:8000/projects/api/projects/all 
 
  #### data
  - you will find the csv files for the normalized raw data
@@ -67,4 +67,3 @@ http://127.0.0.1:8000/projects/api/projects/country/<kenya>
 - go to:
 - http://127.0.0.1:8000/projects/api/projects/all
 ![API view all projects](EnterpriseSolution/demo/asset/get_all_projects_API.png)
-
