@@ -24,16 +24,14 @@ class Project(models.Model):
     start_date = models.DateTimeField('start date')
     duration =  models.IntegerField(default=0)
     end_date = models.DateTimeField('end date')
-    grant_amount = models.DecimalField(max_digits=6, decimal_places=2)
-    first_disbursement_amount = models.DecimalField(max_digits=6, decimal_places=2)
+    grant_amount = models.DecimalField(max_digits=20, decimal_places=2)
+    first_disbursement_amount = models.DecimalField(max_digits=20, decimal_places=2)
     readiness_or_NAP =models.CharField(max_length=100)
     types_of_readiness = models.CharField(max_length=100)
     status = models.CharField(max_length=100,blank=True)
 
 
 class ProjectImplementation(models.Model):
-    country_id = models.ForeignKey(Country, on_delete=models.PROTECT )
-    project_id = models.ForeignKey(Project, on_delete=models.PROTECT )
-    implementing_office_id = models.ForeignKey(Office, on_delete=models.PROTECT)
-    status = models.CharField(max_length=100)
- 
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    country = models.ForeignKey(Country, on_delete=models.PROTECT)
+    implementation_office = models.ForeignKey(Office, on_delete=models.PROTECT)
