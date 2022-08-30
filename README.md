@@ -24,3 +24,12 @@ navigate to
 http://127.0.0.1:8000/projects/
 
 #### API
+- add country name within brackets
+api/projects/country/<kenya>
+- add status within brackets
+ api/projects/status/<completed>
+
+ api/projects/all 
+
+ ####data
+ - you will find the csv files for the normalized raw data
