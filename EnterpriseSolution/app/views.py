@@ -2,8 +2,9 @@
 from audioop import reverse
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from django.views.generic.edit import UpdateView, DeleteView
+from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from django.views.generic.detail import DetailView
+from django.urls import reverse_lazy
 
 # rest framework
 from rest_framework.generics import ListAPIView
@@ -23,32 +24,32 @@ def index(request):
         context = {'project_list': project_list}
         return render(request, 'app/index.html', context)
 
-# view one project
-# def read(request, project_id):
-#     project = get_object_or_404(Project, pk=project_id)
-#     context = {'project': project}
-#     return render(request, 'app/project_detail.html', context)
+# create a project
+class ProjectCreateView(CreateView):
+    model = Project
+    fields = '__all__'
 
+# view a single project
 class ProjectDetailView(DetailView):
     model = Project
+    fields = '__all__'
 
-# # update a project
+# update a project
 class ProjectUpdateView(UpdateView):
     model = Project
     fields = '__all__'
     
-    # def get_success_url(self) -> str:
-    #     return reverse('app:')
-    # success_url: "/"
+    def get_success_url(self) -> str:
+        success_url = reverse_lazy('project:index')
+        return success_url
 
-# # delete a project
-
+# delete a project
 class ProjectDeleteView(DeleteView):
     model=Project
 
     def get_success_url(self) -> str:
-        return reverse('app:index')
-
+        success_url = reverse_lazy('project:index')
+        return success_url
 
 # API 
 # get all projects
@@ -74,9 +75,13 @@ class CountryProjectViewAll(ListAPIView):
 class ProjectStatusViewAll(ListAPIView):
     quesyset = Project.objects.all()
     serializer_class = ProjectSerializer
+    lookup_field = "pk"
     
 
     def get_queryset(self):
-        status = self.kwargs.get('status','')
-        return Project.objects.filter(status=status).all()
+        status = self.kwargs.get('status',None)
+        if status:
+            return Project.objects.filter(status=status).all()
+        return Project.objects.all()
+
     
