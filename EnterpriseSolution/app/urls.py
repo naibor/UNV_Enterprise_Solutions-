@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import ProjectDetailView, ProjectUpdateView, ProjectDeleteView,index, ProjectViewAll, CountryProjectViewAll, ProjectStatusViewAll
-app_name ="app"
+from .views import ProjectDetailView, ProjectUpdateView, ProjectDeleteView,index, ProjectViewAll, CountryProjectViewAll, ProjectStatusViewAll,ProjectCreateView
+app_name ="project"
 
 urlpatterns = [
     # create a project
+    path('create', ProjectCreateView.as_view(), name='create'),
     # view all projects 
     path('', index, name='index'),
     # view one project
@@ -16,6 +17,6 @@ urlpatterns = [
     # api urls
     path('api/projects/all', ProjectViewAll.as_view(), name='api-projects-all' ),
     path('api/projects/country/<str:country>', CountryProjectViewAll.as_view(), name='api-projects-country-all' ),
-    path('api/projects/status/<str:status> ', ProjectStatusViewAll.as_view(), name='api-projects-status-all' )
+    path('api/projects/status/<str:status>', ProjectStatusViewAll.as_view(), name='api-projects-status-all' )
  
 ]

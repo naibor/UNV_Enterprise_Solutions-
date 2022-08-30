@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html>
-<style>
-table, th, td {
-  border:1px solid black;
-}
-</style>
-<body>
-
-<h2>A basic HTML table</h2>
+{% extends "base.html" %}
+{% block content %}
+<h2>PROJECTS</h2>
+<a type="button" href="{% url 'project:create' %}">ADD PROJECT</a>
 <form method="POST">
 {% csrf_token %}
 <select name="show_records">
@@ -27,30 +21,36 @@ table, th, td {
   <option>100</option>
 </select>
 <button type="submit">show records</button>
-<table style="width:100%">
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Project REF</th>
+      <th scope="col">Project Title</th>
+      <th scope="col">modify<th>
+    </tr>
+</thead>
+{% if project_list %}
+{% for project in project_list %}
+<tbody>
+
   <tr>
-    <th>Project Title</th>
-    <th>Project REF</th>
-    <th>project url</th>
-    <th>modify<th>
-  </tr>
-  {% if project_list %}
-  {% for project in project_list %}
-  
-  <tr>
-    <td>{{ project.project_title }}</td>
+    <th scope="row">{{project.id}}</th>
     <td>{{ project.project_ref }}</td>
-    <td><a href="/projects/{{ project.id }}/">TO URL</a></td>
+    <td>{{ project.project_title }}</td>
     <td>
-      <a type="button" href="/projects/{{ project.id }}/">VIEW</a>
-      <a type="button" href="/projects/{{ project.id }}/edit">EDIT</a>
-      <a type="button" href="/projects/{{ project.id }}/delete">DELETE</a>
-  </td>
+      <div class="btn-group">
+        <a type="button" class="btn btn-primary btn-sm"  href="/projects/{{ project.id }}/">VIEW</a>
+        <a type="button" class="btn btn-warning btn-sm" href="/projects/{{ project.id }}/edit">EDIT</a>
+        <a type="button" class="btn btn-danger btn-sm" href="/projects/{{ project.id }}/delete">DELETE</a>
+      </div>
+    </td>
+  </tr>
+</tbody>
   {% endfor %}
   {% else %}
   <p>No projects available.</p>
-{% endif %}
-</table>
+  {% endif %}
+
 </form>
-</body>
-</html>
+{% endblock %}
